@@ -2,12 +2,15 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Card from "../components/Card";
 import Screen from "../components/Screen";
+import Header from "../components/Header";
 
 const HomeScreen = (props) => {
   const { navigate } = props.navigation;
 
   return (
     <Screen>
+      <Header title="GYM STAT" />
+
       <Card onPressHandler={() => navigate("UserSettings")}>
         <View>
           <Text style={styles.text}>Użytkownik</Text>

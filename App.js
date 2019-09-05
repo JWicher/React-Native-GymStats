@@ -17,10 +17,16 @@ const MainNavigator = createStackNavigator(
     Stats: { screen: StatsScreen }
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Training",
     defaultNavigationOptions: {
       header: null
-    }
+    },
+    // cardStyle: { opacity: 1 },
+    transitionConfig: () => ({
+      transitionSpec: {
+        duration: 0
+      }
+    })
   }
 );
 
