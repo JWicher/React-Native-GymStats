@@ -9,8 +9,8 @@ import DashBoardBody from "./DashBoardBody";
 const DashBoardExcercise = (props) => {
   const excercise = { ...dbService.getExcerciseById(props.excerciseId) };
   const [currentExcercise, updateCurrentExcercise] = useState(excercise);
-  const [currentResults, setCurrentResults] = useState(getResutls("current"));
-  const [lastResults, setLastResults] = useState(getResutls("latest"));
+  const [currentResults, setCurrentResults] = useState(getResults("current"));
+  const [lastResults, setLastResults] = useState(getResults("last"));
   const [selectedPointToModify, setSelectedPointToModify] = useState("");
 
   const startNewTraining = () => {
@@ -19,8 +19,8 @@ const DashBoardExcercise = (props) => {
       createNewHistoryObject()
     ];
     updateCurrentExcercise((ct) => ({ ...ct, history: historyWithTraining }));
-    setCurrentResults(getResutls("current"));
-    setLastResults(getResutls("latest"));
+    setCurrentResults(getResults("current"));
+    setLastResults(getResults("latest"));
   };
   const addNewSerie = () => {
     const cr = { ...currentResults };
@@ -45,7 +45,7 @@ const DashBoardExcercise = (props) => {
       setLastResults(ls);
     }
   };
-  function getResutls(position) {
+  function getResults(position) {
     const num = position === "current" ? 1 : 2;
     const a =
       currentExcercise.history.length >= num
@@ -75,10 +75,15 @@ const DashBoardExcercise = (props) => {
   function addFantomSerie(length) {
     return { number: length, repeats: "--", weight: "--" };
   }
-
   const onSelecPointToModifyHandler = (selectedPoint) => {
     setSelectedPointToModify(selectedPoint);
   };
+
+  useEffect(() => {
+    setCurrentResults(getResults("current"));
+    setLastResults(getResults("last"));
+    updateCurrentExcercise(excercise);
+  });
 
   return (
     <View style={styles.containerMain}>
