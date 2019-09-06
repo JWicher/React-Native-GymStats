@@ -105,13 +105,34 @@ export default {
       },
       history: [
         {
-          id: 2316898135165,
+          id: 3433453,
           day: "2019-09-02",
           series: [
             {
-              name: "seria 1",
-              repeats: 20,
-              weight: 40
+              number: 1,
+              repeats: 2,
+              weight: 12
+            },
+            {
+              number: 2,
+              repeats: 5,
+              weight: 42
+            }
+          ]
+        },
+        {
+          id: 332,
+          day: "2019-09-01",
+          series: [
+            {
+              number: 1,
+              repeats: 2,
+              weight: 2
+            },
+            {
+              number: 2,
+              repeats: 54,
+              weight: 5
             }
           ]
         }
@@ -133,9 +154,9 @@ export default {
           day: "2019-09-02",
           series: [
             {
-              name: "seria 1",
-              repeats: 20,
-              weight: 40
+              number: 1,
+              repeats: 78,
+              weight: 22
             }
           ]
         }
@@ -157,9 +178,9 @@ export default {
           day: "2019-09-02",
           series: [
             {
-              name: "seria 1",
-              repeats: 20,
-              weight: 40
+              number: 1,
+              repeats: 30,
+              weight: 24
             }
           ]
         }

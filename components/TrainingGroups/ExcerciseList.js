@@ -4,27 +4,30 @@ import dbService from "../../services/dbService";
 import ListOfItems from "./ListOfItems";
 import ExcerciseListHeader from "./ExcerciseListHeader";
 import Colors from "../../constants/Colors";
+import { connect } from "react-redux";
+import { changeSelectedPointId } from "../../redux/actions/actionsStatistic";
 
 const ExcerciseList = (props) => {
   const trainingDayParts = dbService.getTrainingDayPartsByGroupId(
     props.groupId
   );
+  const [selectedTrPartId, setSelectedTrPartId] = useState(
+    trainingDayParts[0].id
+  );
   const excercises = dbService.getExcercisesByTrainingDayPartId(
     selectedTrPartId
   );
 
-  const [selectedTrPartId, setSelectedTrPartId] = useState(
-    trainingDayParts[0].id
-  );
   const [selectedExcerciseId, setSelectedExcerciseId] = useState("");
 
   const changeGroupHandler = (groupId) => {
     setSelectedTrPartId(groupId);
+    props.changeSelectedPointId({ id: groupId, type: "part" });
   };
   const changeExcerciseHandler = (excerciseId) => {
     setSelectedExcerciseId(excerciseId);
+    props.changeSelectedPointId({ id: excerciseId, type: "excercise" });
   };
-
   return (
     <View style={styles.container}>
       <ExcerciseListHeader />
@@ -52,7 +55,17 @@ const ExcerciseList = (props) => {
   );
 };
 
-export default ExcerciseList;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeSelectedPointId: (excercise) =>
+      dispatch(changeSelectedPointId(excercise))
+  };
+};
+
+export default connect(
+  (state) => state,
+  mapDispatchToProps
+)(ExcerciseList);
 
 const styles = StyleSheet.create({
   container: {
