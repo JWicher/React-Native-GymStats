@@ -16,7 +16,11 @@ const ListOfItems = (props) => {
           key={d.id}
           style={{ ...styles.item, ...checkSelectionStyle(d.id) }}
         >
-          <Text onPress={() => props.onItemPressHandler(d.id)}>{d.name}</Text>
+          <Text
+            onPress={() => props.onItemPressHandler({ id: d.id, name: d.name })}
+          >
+            {d.name}
+          </Text>
         </View>
       ))}
     </View>

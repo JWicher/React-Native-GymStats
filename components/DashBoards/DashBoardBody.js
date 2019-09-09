@@ -46,21 +46,23 @@ const DashBoardBody = (props) => {
   useEffect(() => {
     setLastResults(getResults("last"));
     setCurrentResults(getResults("current"));
-  }, [excercise.id]);
+  }, [excercise.id, props.excercise.history.length]);
 
   useEffect(() => {
     setBiggestLength(getBiggestArrayLength());
-    // setCurrentResults(getResults("current"));
   }, [currentResults.series.length]);
+
+  console.log("lastResults", new Date().getTime());
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.conteinerInner}>
           <ColumnsSeries length={biggestLength} />
-          <ColumnsLastResults results={lastResults} />
+          <ColumnsLastResults results={lastResults} length={biggestLength} />
           <ColumnsCurrentResults
             results={currentResults}
             length={biggestLength}
+            currentResLength={currentResults.series.length}
           />
         </View>
       </ScrollView>
@@ -74,8 +76,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     width: "100%",
-    height: "70%",
-    maxHeight: "70%",
+    height: "57%",
+    maxHeight: "57%",
     borderColor: "red",
     borderWidth: 1
   },

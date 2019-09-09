@@ -5,7 +5,7 @@ const Column = (props) => {
   return (
     <View style={styles.container}>
       <Text style={{ ...styles.text, ...props.textColor }}>{props.title}</Text>
-      {props.data.series.map((serie) => (
+      {props.data.map((serie) => (
         <Text key={serie.number} style={{ ...styles.text, ...props.textColor }}>
           {serie[props.valueName]}
         </Text>

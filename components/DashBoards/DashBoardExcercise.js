@@ -15,9 +15,6 @@ class DashBoardExcercise extends Component {
     };
   }
 
-  componentDidMount() {
-    // this.setState({ currentExcercise: this.state.excerciseFromDB });
-  }
   static getDerivedStateFromProps(props, state) {
     if (props.excerciseId !== state.currentExcercise.id) {
       return {
@@ -41,14 +38,34 @@ class DashBoardExcercise extends Component {
     this.setState(currentExcercise);
   };
 
-  render() {
-    // console.log("props", this.state);
+  addNewExcerciseTrainingHandler = () => {
+    const { currentExcercise } = { ...this.state };
+    const today = new Date();
 
+    const newTrainingDay = {
+      id: today.getTime(),
+      day: today.toISOString().substr(0, 10),
+      series: [
+        {
+          number: 1,
+          repeats: 0,
+          weight: 0
+        }
+      ]
+    };
+    currentExcercise.history.push(newTrainingDay);
+    this.setState(currentExcercise);
+  };
+
+  render() {
     return (
       <View style={styles.containerMain}>
         <DashBoardHeader />
         <DashBoardBody excercise={this.state.currentExcercise} />
-        <ExcerciseButtons onAddNewSieres={this.addSeriesHandler} />
+        <ExcerciseButtons
+          onAddNewSieres={this.addSeriesHandler}
+          onAddnewTraininDay={this.addNewExcerciseTrainingHandler}
+        />
       </View>
     );
   }

@@ -11,20 +11,23 @@ import { connect } from "react-redux";
 const TrainingScreen = (props) => {
   const user = dbService.getUserData();
   const training = user.trainings[0];
+  const { currentExcercise } = props.reducerCompass;
 
-  const trainingGroups = dbService.getTrainingGroupByTrainingId(training.id);
-  const trainingGroup = trainingGroups[0];
-  const selectedExcercise = props.reducerStatistics.currentSelectePoint;
-
+  // reducerCompass: {
+  //   currentTraining: {id: "", name: ""},
+  //   currentTrainingGroup: {id: "", name: ""},
+  //   currentExcercise: {id: "", name: ""},
+  //   currentExcerciseDay: {id: "", name: ""},
+  // }
   return (
     <Screen>
       <Header title={training.name} menu={true} />
       <StatsTable training={training} />
       <View style={styles.trainingDayParts}>
-        <ExcerciseList groupId={trainingGroup.id} />
+        <ExcerciseList />
       </View>
-      {selectedExcercise.type === "excercise" && (
-        <DashBoardExcercise excerciseId={selectedExcercise.id} />
+      {currentExcercise.id !== "" && (
+        <DashBoardExcercise excerciseId={currentExcercise.id} />
       )}
     </Screen>
   );
@@ -35,8 +38,8 @@ export default connect((state) => state)(TrainingScreen);
 const styles = StyleSheet.create({
   trainingDayParts: {
     width: "100%",
-    height: 200,
-    maxHeight: 200,
+    height: 170,
+    maxHeight: 170,
     overflow: "hidden"
   }
 });

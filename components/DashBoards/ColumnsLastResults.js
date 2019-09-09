@@ -4,23 +4,30 @@ import Column from "./Column";
 import Colors from "../../constants/Colors";
 
 const ColumnsLastResults = (props) => {
-  const [results, setResults] = useState(props.results);
+  const [data, setData] = useState(props.results.series);
 
+  const fillDataWithEmptyObjects = () => {
+    let arr = [...props.results.series];
+    for (let i = arr.length; i < props.length; i++) {
+      arr.push({ number: i + 1, repeats: "--", weight: "--" });
+    }
+    setData(arr);
+  };
   useEffect(() => {
-    setResults(props.results);
-  });
+    fillDataWithEmptyObjects();
+  }, [props.results.id, props.length]);
 
   return (
     <View style={styles.container}>
       <Column
         title="kg"
-        data={props.results}
+        data={data}
         valueName="weight"
         textColor={{ color: Colors.rgbaLimeStrong }}
       />
       <Column
         title="rp"
-        data={props.results}
+        data={data}
         valueName="repeats"
         textColor={{ color: Colors.rgbaLimeStrong }}
       />

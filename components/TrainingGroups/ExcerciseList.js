@@ -5,34 +5,36 @@ import ListOfItems from "./ListOfItems";
 import ExcerciseListHeader from "./ExcerciseListHeader";
 import Colors from "../../constants/Colors";
 import { connect } from "react-redux";
-import { changeSelectedPointId } from "../../redux/actions/actionsStatistic";
-import { changeSelectedSeriesValue } from "../../redux/actions/actionsDashboard";
+import {
+  changeTrainingGroup,
+  currentTrainingGroupPart,
+  changeExcercise,
+  changeSeries
+} from "../../redux/actions/actionsCompass";
 
 const ExcerciseList = (props) => {
-  const trainingDayParts = dbService.getTrainingDayPartsByGroupId(
-    props.groupId
+  const {
+    currentTrainingGroup,
+    currentTrainingGroupPart,
+    currentExcercise
+  } = props.reducerCompass;
+
+  const trainingGroupParts = dbService.getTrainingGroupPartsByGroupId(
+    currentTrainingGroup.id
   );
-  const [selectedTrPartId, setSelectedTrPartId] = useState(
-    trainingDayParts[0].id
-  );
-  const excercises = dbService.getExcercisesByTrainingDayPartId(
-    selectedTrPartId
+  const excercises = dbService.getExcercisesByTrainingGroupPart(
+    currentTrainingGroupPart.id
   );
 
-  const [selectedExcerciseId, setSelectedExcerciseId] = useState("");
-
-  const changeGroupHandler = (groupId) => {
-    setSelectedTrPartId(groupId);
-    setSelectedExcerciseId("");
-    props.changeSelectedPointId({ id: groupId, type: "part" });
-    props.changeSelectedSeriesValue({ number: "", valueName: "" });
+  const changeGroupHandler = (selectedGroup) => {
+    props.changeExcercise({ id: "", name: "" });
+    props.currentTrainingGroupPart(selectedGroup);
+    props.changeSeries({ number: "", valueName: "" });
   };
-  const changeExcerciseHandler = (excerciseId) => {
-    setSelectedExcerciseId(excerciseId);
-    props.changeSelectedPointId({ id: excerciseId, type: "excercise" });
-    props.changeSelectedSeriesValue({ number: "", valueName: "" });
+  const changeExcerciseHandler = (selectedExcercise) => {
+    props.changeExcercise(selectedExcercise);
+    props.changeSeries({ number: "", valueName: "" });
   };
-
 
   return (
     <View style={styles.container}>
@@ -41,8 +43,8 @@ const ExcerciseList = (props) => {
         <View style={styles.excerciseGroup}>
           <ScrollView>
             <ListOfItems
-              data={trainingDayParts}
-              currentSelected={selectedTrPartId}
+              data={trainingGroupParts}
+              currentSelected={currentTrainingGroupPart.id}
               onItemPressHandler={changeGroupHandler}
             />
           </ScrollView>
@@ -51,7 +53,7 @@ const ExcerciseList = (props) => {
           <ScrollView>
             <ListOfItems
               data={excercises}
-              currentSelected={selectedExcerciseId}
+              currentSelected={currentExcercise.id}
               onItemPressHandler={changeExcerciseHandler}
             />
           </ScrollView>
@@ -63,10 +65,12 @@ const ExcerciseList = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeSelectedPointId: (excercise) =>
-      dispatch(changeSelectedPointId(excercise)),
-    changeSelectedSeriesValue: (selectedSeriesValue) =>
-      dispatch(changeSelectedSeriesValue(selectedSeriesValue))
+    changeTrainingGroup: (group) => dispatch(changeTrainingGroup(group)),
+    currentTrainingGroupPart: (groupPart) =>
+      dispatch(currentTrainingGroupPart(groupPart)),
+    changeExcercise: (selectedSeries) =>
+      dispatch(changeExcercise(selectedSeries)),
+    changeSeries: (selectedSeries) => dispatch(changeSeries(selectedSeries))
   };
 };
 

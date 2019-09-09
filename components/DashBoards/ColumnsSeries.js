@@ -31,8 +31,8 @@ export default ColumnsSeries;
 
 const styles = StyleSheet.create({
   container: {
-    width: "30%",
-    maxWidth: "30%",
+    width: "25%",
+    maxWidth: "25%",
     alignItems: "center"
   },
   text: {

@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     alignContent: "space-between"
   },
   headerSeries: {
-    width: "30%",
-    maxWidth: "30%",
+    width: "25%",
+    maxWidth: "25%",
     alignItems: "center"
   },
   headerResults: {
