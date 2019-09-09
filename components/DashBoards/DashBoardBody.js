@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import ColumnsSeries from "./ColumnsSeries";
 import ColumnsLastResults from "./ColumnsLastResults";
 import ColumnsCurrentResults from "./ColumnsCurrentResults";
+import { ScrollView } from "react-native-gesture-handler";
 
 const DashBoardBody = (props) => {
   const [excercise, setExcercise] = useState(props.excercise);
@@ -49,13 +50,20 @@ const DashBoardBody = (props) => {
 
   useEffect(() => {
     setBiggestLength(getBiggestArrayLength());
+    // setCurrentResults(getResults("current"));
   }, [currentResults.series.length]);
-
   return (
     <View style={styles.container}>
-      <ColumnsSeries length={biggestLength} />
-      <ColumnsLastResults results={lastResults} />
-      <ColumnsCurrentResults results={currentResults} />
+      <ScrollView>
+        <View style={styles.conteinerInner}>
+          <ColumnsSeries length={biggestLength} />
+          <ColumnsLastResults results={lastResults} />
+          <ColumnsCurrentResults
+            results={currentResults}
+            length={biggestLength}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -70,5 +78,10 @@ const styles = StyleSheet.create({
     maxHeight: "70%",
     borderColor: "red",
     borderWidth: 1
+  },
+  conteinerInner: {
+    flexDirection: "row",
+    width: "100%",
+    height: "100%"
   }
 });

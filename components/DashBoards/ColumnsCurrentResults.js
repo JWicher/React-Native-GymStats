@@ -1,27 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import ColumnCurrentResDetails from "./ColumnCurrentResDetails";
 import { connect } from "react-redux";
 import { changeExcerciseCurrentTraining } from "../../redux/actions/actionsDashboard";
 
 const ColumnsCurrentResults = (props) => {
+  const [data, setData] = useState(props.results);
   // przesunać gdzies ta funkcje ponzej aby zarejestrowac dzien treningu dla dageo cwicenia
-
   useEffect(() => {
     props.changeExcerciseCurrentTraining(props.results.id);
-  }, [props.results.id]);
+    setData(props.results);
+  }, [props.results.id, props.results.series.length]);
+
   return (
     <View style={styles.container}>
-      <ColumnCurrentResDetails
-        title="kg"
-        data={props.results}
-        valueName="weight"
-      />
-      <ColumnCurrentResDetails
-        title="rp"
-        data={props.results}
-        valueName="repeats"
-      />
+      <ColumnCurrentResDetails title="kg" data={data} valueName="weight" />
+      <ColumnCurrentResDetails title="rp" data={data} valueName="repeats" />
     </View>
   );
 };

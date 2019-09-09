@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet, ScrollView, Button } from "react-native";
 import dbService from "../../services/dbService";
 import DashBoardHeader from "./DashBoardHeader";
@@ -6,13 +6,30 @@ import DashBoardBody from "./DashBoardBody";
 import ExcerciseButtons from "./ExcerciseButtons";
 import { connect } from "react-redux";
 
-const DashBoardExcercise = (props) => {
-  const excerciseFromDB = dbService.getExcerciseById(props.excerciseId);
-  const [currentExcercise, setCurrentExcercise] = useState(excerciseFromDB);
+class DashBoardExcercise extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      // excerciseFromDB: dbService.getExcerciseById(props.excerciseId)
+      currentExcercise: dbService.getExcerciseById(props.excerciseId)
+    };
+  }
 
-  const addSeriesHandler = () => {
-    console.log("ne series");
-    const { currentExcerciseDayID: cEDId } = props.reducerDashboard;
+  componentDidMount() {
+    // this.setState({ currentExcercise: this.state.excerciseFromDB });
+  }
+  static getDerivedStateFromProps(props, state) {
+    if (props.excerciseId !== state.currentExcercise.id) {
+      return {
+        currentExcercise: dbService.getExcerciseById(props.excerciseId)
+      };
+    }
+    return null;
+  }
+
+  addSeriesHandler = () => {
+    const { currentExcerciseDayID: cEDId } = this.props.reducerDashboard;
+    const { currentExcercise } = { ...this.state };
     const index = currentExcercise.history.findIndex((eTD) => eTD.id === cEDId);
     const numberOfSeries = currentExcercise.history[index].series.length;
     const newSeries = {
@@ -21,23 +38,21 @@ const DashBoardExcercise = (props) => {
       weight: "--"
     };
     currentExcercise.history[index].series.push(newSeries);
-    setCurrentExcercise(currentExcercise);
+    this.setState(currentExcercise);
   };
 
-  useEffect(() => {
-    setCurrentExcercise(excerciseFromDB);
-  }, [props.excerciseId]);
+  render() {
+    // console.log("props", this.state);
 
-  console.log("props", currentExcercise.history);
-
-  return (
-    <View style={styles.containerMain}>
-      <DashBoardHeader />
-      <DashBoardBody excercise={currentExcercise} />
-      <ExcerciseButtons onAddNewSieres={addSeriesHandler} />
-    </View>
-  );
-};
+    return (
+      <View style={styles.containerMain}>
+        <DashBoardHeader />
+        <DashBoardBody excercise={this.state.currentExcercise} />
+        <ExcerciseButtons onAddNewSieres={this.addSeriesHandler} />
+      </View>
+    );
+  }
+}
 
 export default connect((state) => state)(DashBoardExcercise);
 

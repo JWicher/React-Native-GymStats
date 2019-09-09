@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import { changeSelectedSeriesValue } from "../../redux/actions/actionsDashboard";
@@ -30,6 +30,7 @@ const ColumnCurrentResDetails = (props) => {
 
     return textStyle;
   };
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{props.title}</Text>
@@ -50,7 +51,6 @@ const ColumnCurrentResDetails = (props) => {
     </View>
   );
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
     changeSelectedSeriesValue: (selectedSeriesValue) =>
