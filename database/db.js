@@ -107,6 +107,8 @@ export default {
         {
           id: 3433453,
           day: "2019-09-02",
+          name: "wyciskanie",
+
           series: [
             {
               number: 1,
@@ -123,6 +125,8 @@ export default {
         {
           id: 332,
           day: "2019-09-01",
+          name: "wyciskanie",
+
           series: [
             {
               number: 1,
@@ -131,7 +135,7 @@ export default {
             },
             {
               number: 2,
-              repeats: 54,
+              repeats: 554,
               weight: 5
             }
           ]
@@ -150,8 +154,10 @@ export default {
       },
       history: [
         {
-          id: 2316898135165,
+          id: 26884,
           day: "2019-09-02",
+          name: "płaska",
+
           series: [
             {
               number: 1,
@@ -176,6 +182,8 @@ export default {
         {
           id: 2316898135165,
           day: "2019-09-02",
+          name: "rozpietki",
+
           series: [
             {
               number: 1,

@@ -6,6 +6,7 @@ import ExcerciseListHeader from "./ExcerciseListHeader";
 import Colors from "../../constants/Colors";
 import { connect } from "react-redux";
 import { changeSelectedPointId } from "../../redux/actions/actionsStatistic";
+import { changeSelectedSeriesValue } from "../../redux/actions/actionsDashboard";
 
 const ExcerciseList = (props) => {
   const trainingDayParts = dbService.getTrainingDayPartsByGroupId(
@@ -22,12 +23,17 @@ const ExcerciseList = (props) => {
 
   const changeGroupHandler = (groupId) => {
     setSelectedTrPartId(groupId);
+    setSelectedExcerciseId("");
     props.changeSelectedPointId({ id: groupId, type: "part" });
+    props.changeSelectedSeriesValue({ number: "", valueName: "" });
   };
   const changeExcerciseHandler = (excerciseId) => {
     setSelectedExcerciseId(excerciseId);
     props.changeSelectedPointId({ id: excerciseId, type: "excercise" });
+    props.changeSelectedSeriesValue({ number: "", valueName: "" });
   };
+
+
   return (
     <View style={styles.container}>
       <ExcerciseListHeader />
@@ -58,7 +64,9 @@ const ExcerciseList = (props) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     changeSelectedPointId: (excercise) =>
-      dispatch(changeSelectedPointId(excercise))
+      dispatch(changeSelectedPointId(excercise)),
+    changeSelectedSeriesValue: (selectedSeriesValue) =>
+      dispatch(changeSelectedSeriesValue(selectedSeriesValue))
   };
 };
 

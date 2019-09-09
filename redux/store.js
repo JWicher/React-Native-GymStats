@@ -4,6 +4,10 @@ import rootReducer from "./reducers/root";
 const initialState = {
   reducerStatistics: {
     currentSelectePoint: { id: "", type: "" }
+  },
+  reducerDashboard: {
+    selectedSeriesValue: { number: "", valueName: "" },
+    currentExcerciseDayID: ""
   }
 };
 

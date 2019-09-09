@@ -34,8 +34,6 @@ export default connect((state) => state)(TrainingScreen);
 
 const styles = StyleSheet.create({
   trainingDayParts: {
-    borderWidth: 1,
-    borderColor: "red",
     width: "100%",
     height: 200,
     maxHeight: 200,
