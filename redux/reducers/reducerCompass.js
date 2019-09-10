@@ -1,9 +1,10 @@
 import {
   CHANGE_TRAINING,
   CHANGE_TRAINING_GROUP,
+  CHANGE_TRAINING_GROUP_PART,
   CHANGE_EXCERCISE,
   CHANGE_EXCERCISE_DAY,
-  CHANGE_TRAINING_GROUP_PART
+  CHANGE_SERIES
 } from "../constants/actionTypes";
 
 const reducerCompass = (state = {}, action) => {
@@ -14,16 +15,23 @@ const reducerCompass = (state = {}, action) => {
     case CHANGE_TRAINING_GROUP: {
       return { ...state, currentTrainingGroup: action.currentTrainingGroup };
     }
+    case CHANGE_TRAINING_GROUP_PART: {
+      return {
+        ...state,
+        currentTrainingGroupPart: action.currentTrainingGroupPart
+      };
+    }
     case CHANGE_EXCERCISE: {
       return { ...state, currentExcercise: action.currentExcercise };
     }
     case CHANGE_EXCERCISE_DAY: {
       return { ...state, currentExcerciseDay: action.currentExcerciseDay };
     }
-    case CHANGE_TRAINING_GROUP_PART: {
+
+    case CHANGE_SERIES: {
       return {
         ...state,
-        currentTrainingGroupPart: action.currentTrainingGroupPart
+        currentSeries: action.currentSeries
       };
     }
 

@@ -5,17 +5,26 @@ const initialState = {
   reducerStatistics: {
     currentSelectePoint: { id: "", type: "" }
   },
-  reducerDashboard: {
-    selectedSeriesValue: { number: "", valueName: "" },
-    currentExcerciseDayID: ""
-  },
+  // reducerStore: {
+  //   state: {
+  //     users: [],
+  //     trainings: [],
+  //     training_groups: [],
+  //     training_group_parts: [],
+  //     excercises: []
+  //   }
+  // },
   reducerCompass: {
-    currentTraining: { id: "87746334", name: "Trening siłowy" },
-    currentTrainingGroup: { id: "3219832184", name: "Klatka i barki" },
-    currentTrainingGroupPart: { id: "23543", name: "Klatka" },
-    currentExcercise: { id: "", name: "" },
-    currentExcerciseDay: { id: "", name: "" },
-    currentSeries: { number: "", valueName: "" }
+    currentTraining: { id: "87746334", name: "Trening siłowy", updated: "" },
+    currentTrainingGroup: {
+      id: "3219832184",
+      name: "Klatka i barki",
+      updated: ""
+    },
+    currentTrainingGroupPart: { id: "23543", name: "Klatka", updated: "" },
+    currentExcercise: { id: "", name: "", updated: "" },
+    currentExcerciseDay: { id: "", day: "", updated: "" },
+    currentSeries: { number: "", valueName: "", updated: "" }
   }
 };
 

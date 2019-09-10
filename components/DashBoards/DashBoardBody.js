@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import ColumnsSeries from "./ColumnsSeries";
 import ColumnsLastResults from "./ColumnsLastResults";
 import ColumnsCurrentResults from "./ColumnsCurrentResults";
@@ -52,7 +52,6 @@ const DashBoardBody = (props) => {
     setBiggestLength(getBiggestArrayLength());
   }, [currentResults.series.length]);
 
-  console.log("lastResults", new Date().getTime());
   return (
     <View style={styles.container}>
       <ScrollView>

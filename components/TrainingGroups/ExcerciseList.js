@@ -27,13 +27,13 @@ const ExcerciseList = (props) => {
   );
 
   const changeGroupHandler = (selectedGroup) => {
-    props.changeExcercise({ id: "", name: "" });
+    props.changeExcercise({ id: "", name: "", updated: "" });
     props.currentTrainingGroupPart(selectedGroup);
-    props.changeSeries({ number: "", valueName: "" });
+    props.changeSeries({ number: "", valueName: "", updated: "" });
   };
   const changeExcerciseHandler = (selectedExcercise) => {
     props.changeExcercise(selectedExcercise);
-    props.changeSeries({ number: "", valueName: "" });
+    props.changeSeries({ number: "", valueName: "", updated: "" });
   };
 
   return (

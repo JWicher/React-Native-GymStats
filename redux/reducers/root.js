@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import reducerStatistics from "./reducerStatistics";
-import reducerDashboard from "./reducerDashboard";
 import reducerCompass from "./reducerCompass";
+// import reducerInitialState from "./reducerInitialState";
 
 const rootReducer = combineReducers({
   reducerStatistics,
-  reducerDashboard,
   reducerCompass
+  // reducerInitialState,
 });
 
 export default rootReducer;

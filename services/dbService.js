@@ -1,15 +1,37 @@
 import db_data from "../database/db";
-
+import { AsyncStorage } from "react-native";
+import dbConstants from "./Constants";
 const db = db_data;
+// populateDbToAsyncStorage();
 
-function getUserData() {
-  return db;
+function populateDbToAsyncStorage() {
+  const strUsers = JSON.stringify(getUsers());
+  const strTrainings = JSON.stringify(getTrainings());
+  const strTrGroup = JSON.stringify(getTrainingGroups());
+  const strTrGroupParts = JSON.stringify(getTrainingGroupParts());
+  const strExcercises = JSON.stringify(getExcercises());
+  AsyncStorage.setItem(dbConstants.users, strUsers);
+  AsyncStorage.setItem(dbConstants.trainings, strTrainings);
+  AsyncStorage.setItem(dbConstants.training_groups, strTrGroup);
+  AsyncStorage.setItem(dbConstants.training_group_parts, strTrGroupParts);
+  AsyncStorage.setItem(dbConstants.excercises, strExcercises);
+  console.log("populate db");
+}
+
+export function getUsers() {
+  return db.users;
+}
+export function getUserById(id) {
+  return db.users.filter((user) => user.id === id);
 }
 function getTrainings() {
   return db.trainings;
 }
 function getTrainingById(trainingId) {
   return db.trainings.filter((t) => t.id === trainingId)[0];
+}
+function getTrainingGroups() {
+  return db.training_groups;
 }
 function getTrainingGroupsByTrainingId(trId) {
   return db.training_groups.filter((group) => group.trainingId === trId);
@@ -20,7 +42,7 @@ function getTrainingGroupById(groupId) {
 function getTrainingGroupByTrainingId(id) {
   return db.training_groups.filter((group) => group.trainingId === id);
 }
-function getTrainingDayParts() {
+function getTrainingGroupParts() {
   return db.training_group_parts;
 }
 function getTrainingDayPartById(trainingPartId) {
@@ -40,10 +62,12 @@ function getExcercisesByTrainingGroupPart(partId) {
 }
 
 export default {
-  getUserData,
+  getUsers,
+  getUserById,
   getTrainings,
+  getTrainingGroups,
   getTrainingGroupsByTrainingId,
-  getTrainingDayParts,
+  getTrainingGroupParts,
   getExcercises,
   getTrainingById,
   getTrainingGroupById,

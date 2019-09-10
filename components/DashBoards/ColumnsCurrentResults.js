@@ -2,14 +2,19 @@ import React, { Component, useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import ColumnCurrentResDetails from "./ColumnCurrentResDetails";
 import { connect } from "react-redux";
-import { changeExcerciseCurrentTraining } from "../../redux/actions/actionsDashboard";
+import { changeExcerciseDay } from "../../redux/actions/actionsCompass";
 import Colors from "../../constants/Colors";
+import AddSeriesButton from "./buttons/AddSeriesButton";
 
 const ColumnsCurrentResults = (props) => {
   const [data, setData] = useState(props.results);
   // przesunać gdzies ta funkcje ponzej aby zarejestrowac dzien treningu dla dageo cwicenia
   useEffect(() => {
-    props.changeExcerciseCurrentTraining(props.results.id);
+    props.changeExcerciseDay({
+      id: data.id,
+      day: data.day,
+      updated: new Date().toISOString()
+    });
     setData(props.results);
   }, [props.results.id, props.currentResLength]);
 
@@ -20,17 +25,15 @@ const ColumnsCurrentResults = (props) => {
         <ColumnCurrentResDetails title="rp" data={data} valueName="repeats" />
       </View>
 
-      <TouchableOpacity style={styles.addSeriesButton}>
-        <Text style={styles.text}>+</Text>
-      </TouchableOpacity>
+      <AddSeriesButton />
     </View>
   );
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeExcerciseCurrentTraining: (currentTrainingID) =>
-      dispatch(changeExcerciseCurrentTraining(currentTrainingID))
+    changeExcerciseDay: (excerciseDay) =>
+      dispatch(changeExcerciseDay(excerciseDay))
   };
 };
 
@@ -50,17 +53,5 @@ const styles = StyleSheet.create({
     maxWidth: "100%",
     alignItems: "center",
     flexDirection: "row"
-  },
-  text: {
-    color: "white",
-    textAlign: "center"
-  },
-  addSeriesButton: {
-    height: 25,
-    width: "30%",
-    borderWidth: 1,
-    borderRadius: 10,
-    backgroundColor: Colors.rgbaLimeStrong,
-    justifyContent: "center"
   }
 });

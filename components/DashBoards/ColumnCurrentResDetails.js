@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { connect } from "react-redux";
-import { changeSelectedSeriesValue } from "../../redux/actions/actionsDashboard";
+import { changeSeries } from "../../redux/actions/actionsCompass";
 
 const ColumnCurrentResDetails = (props) => {
-  const selectingSeriesValueHandler = (selectedSeriesValue) => {
-    props.changeSelectedSeriesValue(selectedSeriesValue);
+  const selectSeriesHandler = (selectedSeries) => {
+    props.changeSeries(selectedSeries);
   };
 
   const getStyle = (seriesPoint) => {
-    const selectedPoint = props.reducerDashboard.selectedSeriesValue;
+    const { currentSeries: selected } = props.reducerCompass;
+    const sameNumber = seriesPoint.number === selected.number;
+    const sameValueName = props.valueName === selected.valueName;
+
     const textStyle = {
       color: "white",
       textAlign: "center",
@@ -17,10 +20,7 @@ const ColumnCurrentResDetails = (props) => {
       fontSize: 18,
       height: 30
     };
-    if (
-      seriesPoint.number === selectedPoint.number &&
-      props.valueName === selectedPoint.valueName
-    ) {
+    if (sameNumber && sameValueName) {
       textStyle.borderWidth = 1;
       textStyle.borderColor = "white";
       textStyle.width = 40;
@@ -39,9 +39,10 @@ const ColumnCurrentResDetails = (props) => {
           key={series.number}
           style={getStyle(series)}
           onPress={() =>
-            selectingSeriesValueHandler({
+            selectSeriesHandler({
               number: series.number,
-              valueName: props.valueName
+              valueName: props.valueName,
+              updated: new Date().toISOString()
             })
           }
         >
@@ -53,8 +54,7 @@ const ColumnCurrentResDetails = (props) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    changeSelectedSeriesValue: (selectedSeriesValue) =>
-      dispatch(changeSelectedSeriesValue(selectedSeriesValue))
+    changeSeries: (selectedSeries) => dispatch(changeSeries(selectedSeries))
   };
 };
 

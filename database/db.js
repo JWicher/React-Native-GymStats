@@ -1,24 +1,35 @@
 export default {
-  id: "3219832184",
-  user_name: "Jarek",
-  measurements: {
-    places: [
-      { name: "biceps lewy", id: 1321 },
-      { name: "klatka góra", id: 5226 }
-    ],
-    history: [
-      {
-        day: "2019-09-02",
-        places: [
-          {
-            name: "biceps lewy",
-            id: "5612",
-            value: 23
-          }
-        ]
-      }
-    ]
-  },
+  users: [
+    {
+      id: "3219832184",
+      user_name: "Jarek",
+      trainings: [{ id: "87746334" }],
+      measurements: [{ id: "929374" }]
+    }
+  ],
+
+  measurements: [
+    {
+      id: "929374",
+      user: "3219832184",
+      places: [
+        { name: "biceps lewy", id: 1321 },
+        { name: "klatka góra", id: 5226 }
+      ],
+      history: [
+        {
+          day: "2019-09-02",
+          places: [
+            {
+              name: "biceps lewy",
+              id: "5612",
+              value: 23
+            }
+          ]
+        }
+      ]
+    }
+  ],
   trainings: [
     {
       id: "87746334",
